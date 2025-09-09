@@ -3,6 +3,53 @@
 <head>
   <meta charset="utf-8">
   <title>ติดตามสถานะการสั่งซื้อ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh; /* จัดให้อยู่กึ่งกลางจอ */
+      margin: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input, button {
+      font-size: 20px;
+      padding: 12px;
+      margin: 10px 0;
+      width: 80%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #00c300;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    button:hover {
+      background-color: #00a300;
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 22px;
+      color: #222;
+      white-space: pre-line;
+    }
+  </style>
 </head>
 <body>
   <h2>ติดตามสถานะออเดอร์</h2>
