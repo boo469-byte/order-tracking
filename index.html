@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
   <meta charset="utf-8">
-  <title>Order Tracking</title>
+  <title>ติดตามสถานะการสั่งซื้อ</title>
 </head>
 <body>
-  <h2>ติดตามสถานะออร์เดอร์</h2>
+  <h2>ติดตามสถานะออเดอร์</h2>
   <input type="email" id="email" placeholder="กรอก Email ของคุณ">
   <button onclick="checkOrder()">ตรวจสอบสถานะ</button>
-  <div id="result" style="margin-top: 20px; white-space: pre-line;"></div>
+  <div id="result"></div>
 
   <script>
-    // ตัวอย่างข้อมูลจำลอง
-    const orders = [
-      { email: "user1@email.com", order: "1001", status: "อยู่ระหว่างจัดส่ง", tracking: "-" },
-      { email: "user2@email.com", order: "1002", status: "ถึงโกดังไทย", tracking: "-" }
-    ];
+    const API_URL = "https://script.google.com/macros/s/AKfycbxZJqpZKjvarTeV2zVAzmoD0SXPI6ghNwZYqrpTMvL167LwW-Y8OuTP6t_DUQKiOefvfQ/exec"; // ใส่ URL Web App ของคุณ
 
-    function checkOrder() {
-      const email = document.getElementById('email').value.toLowerCase();
+    async function checkOrder() {
+      const email = document.getElementById('email').value.trim();
       if (!email) {
         alert("กรุณากรอก Email");
         return;
       }
 
-      const order = orders.find(o => o.email.toLowerCase() === email);
-      const result = order 
-        ? `Order: ${order.order}\nStatus: ${order.status}\nTracking: ${order.tracking}`
-        : "ไม่พบข้อมูล";
+      try {
+        const response = await fetch(`${API_URL}?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
 
-      document.getElementById('result').innerText = result;
+        const resultDiv = document.getElementById('result');
+        if (data && data.email) {
+          resultDiv.innerText = 
+            `Order: ${data.order}\nสถานะ: ${data.status}\nTracking: ${data.tracking}`;
+        } else {
+          resultDiv.innerText = "ไม่พบข้อมูล กรุณาตรวจสอบอีเมลอีกครั้ง";
+        }
+      } catch (err) {
+        console.error(err);
+        alert("ไม่สามารถเชื่อมต่อ API ได้");
+      }
     }
   </script>
 </body>
