@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Order Tracking</title>
+</head>
+<body>
+  <h2>ติดตามสถานะออร์เดอร์</h2>
+  <input type="email" id="email" placeholder="กรอก Email ของคุณ">
+  <button onclick="checkOrder()">ตรวจสอบสถานะ</button>
+  <div id="result" style="margin-top: 20px; white-space: pre-line;"></div>
+
+  <script>
+    // ตัวอย่างข้อมูลจำลอง
+    const orders = [
+      { email: "user1@email.com", order: "1001", status: "อยู่ระหว่างจัดส่ง", tracking: "-" },
+      { email: "user2@email.com", order: "1002", status: "ถึงโกดังไทย", tracking: "-" }
+    ];
+
+    function checkOrder() {
+      const email = document.getElementById('email').value.toLowerCase();
+      if (!email) {
+        alert("กรุณากรอก Email");
+        return;
+      }
+
+      const order = orders.find(o => o.email.toLowerCase() === email);
+      const result = order 
+        ? `Order: ${order.order}\nStatus: ${order.status}\nTracking: ${order.tracking}`
+        : "ไม่พบข้อมูล";
+
+      document.getElementById('result').innerText = result;
+    }
+  </script>
+</body>
+</html>
