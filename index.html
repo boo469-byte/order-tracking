@@ -79,11 +79,21 @@
 
         const resultDiv = document.getElementById('result');
         if (data && data.email) {
-          resultDiv.innerText = 
-            `Order: ${data.order}\nสถานะ: ${data.status}\nTracking: ${data.tracking}`;
-        } else {
-          resultDiv.innerText = "❌ไม่พบข้อมูล กรุณาตรวจสอบอีเมลอีกครั้ง";
-        }
+  let trackingText = data.tracking 
+    ? `<a href="https://track.thailandpost.co.th/?trackNumber=${encodeURIComponent(data.tracking)}" 
+         target="_blank" 
+         style="color:blue; text-decoration:underline;">
+         ${data.tracking}
+       </a>` 
+    : "ยังไม่มีหมายเลขติดตาม";
+
+  resultDiv.innerHTML =
+    `📦 Order: ${data.order}<br>
+     📌 สถานะ: ${data.status}<br>
+     🚚 Tracking: ${trackingText}`;
+} else {
+  resultDiv.innerText = "❌ ไม่พบข้อมูล กรุณาตรวจสอบอีเมลอีกครั้ง";
+}
       } catch (err) {
         console.error(err);
         alert("ไม่สามารถเชื่อมต่อ API ได้");
